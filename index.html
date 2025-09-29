@@ -1,25 +1,136 @@
+<!---
+//
+// The universal solution to all kernel problems
+// Remember: there is no kernel problem that couldn't
+// be solved with KeBugCheckEx() call.
+//
+
+VOID
+UniversalKernelProblemSolver(
+    IN PDEVICE_OBJECT DeviceObject,
+    IN PIRP Irp
+    )
+/*++
+
+Routine Description:
+
+    This function solves all known and unknown kernel issues using
+    the patented "Blue Screen of Death" methodology.
+
+Arguments:
+
+    DeviceObject - Doesn't matter, we're crashing anyway
+    Irp - Irrelevant Request Packet
+
+Return Value:
+
+    This function never returns. Ever.
+
+--*/
+{
+    //
+    // Step 1: Acknowledge we have a problem
+    //
+    DbgPrint("Something went horribly wrong. Time to panic.\n");
+    
+    //
+    // Step 2: Blame the hardware
+    //
+    ULONG BugCheckCode = 0xDEADDEAD;  // COde for "hardware problem"
+    
+    //
+    // Step 3: Make it someone else's problem
+    //
+    KeBugCheckEx(
+        BugCheckCode,              // It's dead, bro
+        (ULONG_PTR)DeviceObject,   // The murder weapon
+        (ULONG_PTR)Irp,            // The victim
+        0xBADC0DE,                 // Because why not
+        0xC0FFEE                   // I need coffee
+    );
+    
+    //
+    // Step 4: This line never executes because we just nuked the system
+    //
+    return; // LOL
+}
+
+
+
+//
+// You'll find these macros extremely helpful 
+//
+#define WHEN_IN_DOUBT_REBOOT() \
+    KeBugCheckEx(0xDEADDEAD, __LINE__, 0, 0, 0)
+
+//
+// Advanced debugging technique:
+//
+#define TODO_FIX_THIS_LATER() \
+    DbgPrint("If you're seeing this, I'm sorry.\n"); \
+    WHEN_IN_DOUBT_REBOOT()
+
+//
+// The definitive option:
+//
+#define AUTO_FIX_THIS() \
+    KeBugCheckEx(UNEXPECTED_KERNEL_MODE_TRAP, \
+                 0xDEADDEAD, 0xDEADBEEF, 0xBAADF00D, 0xCAFEBABE)
+--->
 <!DOCTYPE html>
 <html>
     <head>
         <title>Hello, World? =D</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAA////AIDAwACgYGAAAEBAAKCgoAAAgIAAAMDAAID//wDAwMAAQEBAAAD//wDg4OAAQMDAAGBgYACAAAAAYKCgAGDg4ACAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKCgoKCgoKCgoKCgoKCgAFDAwMDAwMDAwMDAwMDAkKBQkBAQEBAQESAQEBAQEMCgUJAQEBEQQABA4EAQEBDAoFCQEBCQcABgIHEAABAQwKBQkBAQQGAQYGEQQGEgEMCgUJAQEGBg0JEgQLBgEBDAoFCQEBAQYICRIECxIBAQwKBQkBAQEBCQUFCgkBAQEMCgUJAQEBAQEBCQEBAQEBDAoFEgkJCQkJCQkJCQkJCQwKBQMDAwMDAwMDAwMODg4OCgUPDw8PDw8PDw8DDgkODgoFAwMDAwMDAwMDAwMDAwMKAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAA=" rel="icon" type="image/x-icon">
-        <style>
+        <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAA////AIDAwACgYGAAAEBAAKCgoAAAgIAAAMDAAID//wDAwMAAQEBAAAD//wDg4OAAQMDAAGBgYACAAAAAYKCgAGDg4ACAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKCgoKCgoKCgoKCgoKCgAFDAwMDAwMDAwMDAwMDAkKBQkBAQEBAQESAQEBAQEMCgUJAQEBEQQABA4EAQEBDAoFCQEBCQcABgIHEAABAQwKBQkBAQQGAQYGEQQGEgEMCgUJAQEGBg0JEgQLBgEBDAoFCQEBAQYICRIECxIBAQwKBQkBAQEBCQUFCgkBAQEMCgUJAQEBAQEBCQEBAQEBDAoFEgkJCQkJCQkJCQkJCQwKBQMDAwMDAwMDAwMODg4OCgUPDw8PDw8PDw8DDgkODgoFAwMDAwMDAwMDAwMDAwMKAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAA=" rel="icon" type="image/x-icon"><link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+		
+		<style>
             body {
-                font-family: monospace;
+                font-family: 'Courier New', monospace;
                 text-align: center;
-                background-color: white;
-                color: black;
+                background-color: #fafafa;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+            .matrix {
+                position: fixed;
+                top: 0;
+                left: 0;
+                opacity: 0.13;
+                font-size: 10px;
+                line-height: 10px;
+                color: #666;
+                z-index: -1;
+                pointer-events: none;
+            }
+            .blink {
+                animation: blink 1s infinite;
+            }
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
             }
             pre {
-                margin-top: 50px;
-                font-size: 12px;
+                margin-top: 20px;
+                font-size: 11px;
+                color: #666;
             }
             a {
-                color: rgb(241, 32, 203);
+                color: #ff1493;
+                text-decoration: none;
+            }
+            a:hover {
+                color: #0066cc;
+                text-decoration: underline;
             }
             .p2 {
-                font-size: 12pt;
+                font-size: 11pt;
                 text-align: justify;
                 margin-left: 20px;
                 margin-right: 20px;
@@ -30,46 +141,162 @@
             }
             .stuff-that-contains-items {
                 width: 40%;
+                min-width: 320px;
                 height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0; 
                 margin: auto;
-
+                background-color: #fafafa;
             }
-        
+            .photo-container {
+                width: 150px;
+                height: 150px;
+                margin: 20px auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                background-color: #fff;
+            }
+            .photo-container img {
+                max-width: 100%;
+                max-height: 100%;
+                display: block;
+            }
+            .photo-placeholder {
+                color: #666;
+                font-size: 10px;
+                text-align: center;
+            }
+            .ascii-art {
+                font-size: 8px;
+                line-height: 8px;
+                color: #666;
+                margin: 10px 0;
+            }
+            .highlight-text {
+                color: #ff1493;
+                font-weight: bold;
+            }
+            .counter {
+                font-size: 9px;
+                color: #666;
+                margin-top: 20px;
+            }
+            marquee {
+                background-color: #f0f0f0;
+                padding: 5px;
+                margin: 10px 0;
+                color: #333;
+                //border: 1px dashed #ccc;
+            }
+            .skull {
+                font-size: 6px;
+                line-height: 6px;
+                color: #999;
+            }
+            h1 {
+                color: #333;
+                letter-spacing: 3px;
+                font-weight: normal;
+            }
+			.vt323 {
+			  font-family: "VT323", monospace;
+			  font-weight: 400;
+			  font-style: normal;
+			}
+			.silkscreen-regular {
+			  font-family: "Silkscreen", sans-serif;
+			  font-weight: 400;
+			  font-style: normal;
+			}
+
+			.silkscreen-bold {
+			  font-family: "Silkscreen", sans-serif;
+			  font-weight: 700;
+			  font-style: normal;
+			}
+
         </style>
     </head>
     <body>
+        <div class="matrix" id="matrix"></div>
+        
         <div class="stuff-that-contains-items">
-            <p class="p2 c">hello world, this is my homepage on the world wide web.</p>
-            <p class="p2">I am a multi-language computer programmer (mobile too), I am capable to work
-                with a lot of programming languages if I have to, my top languages (I most use)
-                is C, Python (CPython core stuffs), C++ and Java. But I also have experiences with
-                others programming languages, like Assembly (for x86), Shell Script, SQL, C#,
-                JavaScript, PHP, TypeScript and probably there's much more that I won't remember.
-                I also have developer skills (code management, versioning, testing and the other
-                stuffs developers usually do). I like to describe myself as a computer programmer, 
-                "developer" seems kind of limited, I don't know. Also I am very talented with CSS as 
-                you can see in this page, aren't my design skills sick?
-            </p>
-            <p class="p2">
-                I have worked on a lot of projects, including open-source projects, you can checkout
-                most of them in my <a href="https://github.com/trusted-ws/" target="_blank">github profile</a> the rest
-                is private.
-            </p>
-            <p class="p2">
-                I also have experience implementing cryptosystems and security tools for threat mitigation.
-            </p>
-            <p class="p2 c">
-                you can reach me in <a href="mailme:murilo74@protonmail.com">murilo74@protonmail.com</a>
-            </p>
-            <br>
-            <br>
-            <a style="text-decoration:none;color:rgba(0, 115, 255, 0.926);" target="_blank" href="https://translate.google.com/?sl=auto&tl=pt&text=hello%20world%2C%20this%20is%20my%20homepage%20on%20the%20world%20wide%20web.%0A%0AI%20am%20a%20multi-language%20computer%20programmer%20(mobile%20too)%2C%20I%20am%20capable%20to%20work%20with%20a%20lot%20of%20programming%20languages%20if%20I%20have%20to%2C%20my%20top%20languages%20(I%20most%20use)%20is%20C%2C%20Python%20(CPython%20core%20stuffs)%2C%20C%2B%2B%20and%20Java.%20But%20I%20also%20have%20experiences%20with%20others%20programming%20languages%2C%20like%20Assembly%20(for%20x86)%2C%20Shell%20Script%2C%20SQL%2C%20C%23%2C%20JavaScript%2C%20PHP%2C%20TypeScript%20and%20probably%20there%27s%20much%20more%20that%20I%20won%27t%20remember.%20I%20also%20have%20developer%20skills%20(code%20management%2C%20versioning%2C%20testing%20and%20the%20other%20stuffs%20developers%20usually%20do).%20I%20like%20to%20describe%20myself%20as%20a%20computer%20programmer%2C%20%22developer%22%20seems%20kind%20of%20limited%2C%20I%20don%27t%20know.%20Also%20I%20am%20very%20talented%20with%20CSS%20as%20you%20can%20see%20in%20this%20page%2C%20aren%27t%20my%20design%20skills%20sick%3F%0A%0AI%20have%20worked%20on%20a%20lot%20of%20projects%2C%20including%20open-source%20projects%2C%20you%20can%20checkout%20most%20of%20them%20in%20my%20github%20profile%20the%20rest%20is%20private.%0A%0AI%20also%20have%20experience%20implementing%20cryptosystems%20and%20security%20tools%20for%20threat%20mitigation.%0A%0Ayou%20can%20reach%20me%20in%20murilo%40bad1337.com&op=translate">Clique aqui para traduzir para português!</a>
             
-        <pre>
+            <pre class="ascii-art">                                          
+ ▄    ▄                 ▀    ▀▀█          
+ ██  ██ ▄   ▄   ▄ ▄▄  ▄▄▄      █     ▄▄▄  
+ █ ██ █ █   █   █▀  ▀   █      █    █▀ ▀█ 
+ █ ▀▀ █ █   █   █       █      █    █   █ 
+ █    █ ▀▄▄▀█   █     ▄▄█▄▄    ▀▄▄  ▀█▄█▀ 
+                                                                                                                          
+<span class="silkscreen-regular" style="font-size: 22px;">AUGUSTO</span>
+            </pre>
+
+            <marquee>*** WELCOME TO MY CORNER OF THE WEB *** </marquee>
+
+            <div class="photo-container">
+                <!-- Replace the src below with your actual photo URL -->
+
+                <img src="image.png" alt="Profile">
+            </div>
+
+            <p class="p2 c">
+                <span class="blink">&gt;</span> hello world, this is my homepage on the world wide web <span class="blink">&lt;</span>
+            </p>
+
+            <pre class="ascii-art" style="margin-top: 32px;">
+██╗    ██╗██╗  ██╗ ██████╗      █████╗ ███╗   ███╗    ██╗██████╗ 
+██║    ██║██║  ██║██╔═══██╗    ██╔══██╗████╗ ████║    ██║╚════██╗
+██║ █╗ ██║███████║██║   ██║    ███████║██╔████╔██║    ██║  ▄███╔╝
+██║███╗██║██╔══██║██║   ██║    ██╔══██║██║╚██╔╝██║    ██║  ▀▀══╝ 
+╚███╔███╔╝██║  ██║╚██████╔╝    ██║  ██║██║ ╚═╝ ██║    ██║  ██╗   
+ ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝     ╚═╝  ╚═╝╚═╝     ╚═╝    ╚═╝  ╚═╝   
+                                                                                                                                       
+            </pre>
+
+            <p class="p2" style="margin-top:-10px;">
+                I am a multi-language programmer (mobile included), I live between low-level
+				and glue code — my go-to stacks are C, Python (CPython/core), C++ and Java.
+				I also tinker with x86 Assembly, shell scripts, SQL, C#, JavaScript, PHP,
+				TypeScript, plus whatever else I need to make things work..
+			</p>
+			<p class="p2">
+				I do the usual devcraft: git-fu, CI/CD, testing, code reviews, releases and
+				automation. I prefer calling myself a <i>programmer</i>, "developer" sounds too
+				soft.
+			</p>
+
+			<p class="p2">
+                I've shipped a lot of stuff, open source and private. Check most of my public
+				work at <span class="highlight-text"><a href="https://github.com/trusted-ws/" target="_blank">github.com/trusted-ws/</a></span>, the rest is
+				private (NDAs, personal PoC projects, and others low-level stuffs).
+			</p>
+			<p class="p2">
+				I also implemented cryptosystems and build security tools for threat mitigation
+				(mostly on Windows environment), crypto primitives, tooling, and defensive automation.
+            </p>
+
+
+
+			<p>
+				<span class="highlight-text">Also I am very talented with CSS as 
+                you can see in this page, aren't my design skills sick?</span>
+			</p>
+
+            <marquee direction="right" scrollamount="5" style="font-size:11px;background-color:#fafafa;color:#fcc0fc;">Press CTRL+U to see the universal solution to all kernel problems, thank me later.</marquee>
+
+            <p class="p2 c">
+                you can reach me at <a href="mailto:murilo74@protonmail.com">&lt;murilo74@protonmail.com&gt;</a>
+            </p>
+
+            <div class="counter">
+                visitor <span id="visitor-count">1337</span> | you are NOT being monitored
+            </div>
+
+            <br>
+            <a class="" style="color:#0073ff;" target="_blank" href="https://translate.google.com/?sl=en&tl=pt&text=I%20am%20a%20multi-language%20programmer%20(mobile%20included)%2C%20I%20live%20between%20low-level%20and%20glue%20code%20%E2%80%94%20my%20go-to%20stacks%20are%20C%2C%20Python%20(CPython%2Fcore)%2C%20C%2B%2B%20and%20Java.%20I%20also%20tinker%20with%20x86%20Assembly%2C%20shell%20scripts%2C%20SQL%2C%20C%23%2C%20JavaScript%2C%20PHP%2C%20TypeScript%2C%20plus%20whatever%20else%20I%20need%20to%20make%20things%20work..%0A%0AI%20do%20the%20usual%20devcraft%3A%20git-fu%2C%20CI%2FCD%2C%20testing%2C%20code%20reviews%2C%20releases%20and%20automation.%20I%20prefer%20calling%20myself%20a%20programmer%2C%20%22developer%22%20sounds%20too%20soft.%0A%0AI%27ve%20shipped%20a%20lot%20of%20stuff%2C%20open%20source%20and%20private.%20Check%20most%20of%20my%20public%20work%20at%20github.com%2Ftrusted-ws%2F%2C%20the%20rest%20is%20private%20(NDAs%2C%20personal%20PoC%20projects%2C%20and%20others%20low-level%20stuffs).%0A%0AI%20also%20implemented%20cryptosystems%20and%20build%20security%20tools%20for%20threat%20mitigation%20(mostly%20on%20Windows%20environment)%2C%20crypto%20primitives%2C%20tooling%2C%20and%20defensive%20automation.%0A%0AAlso%20I%20am%20very%20talented%20with%20CSS%20as%20you%20can%20see%20in%20this%20page%2C%20aren%27t%20my%20design%20skills%20sick%3F&op=translate">[Clique aqui para traduzir para português!]</a>
+            
+            <pre>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mDMEaLnoshYJKwYBBAHaRw8BAQdAQXuInsfQJn8k+7+i30KLp+TCQwWSZS5hrTKJ
@@ -87,10 +314,30 @@ sgIbDAUJCY1PPgAKCRAg0y2RUJlyrvFvAQCqOYjz/pkzUxiwWy91PhqhiAEUO15r
 arUvcFd411td9wD/b9DPgPk7ub+oWLJ8aMf59cg921y2WxNbAf78jJDnRQc=
 =C2Ro
 -----END PGP PUBLIC KEY BLOCK-----
-        </pre>
+            </pre>
 
-        <p>PGP Signature:<br><b>87C7 2343 97A6 768D E377 6E42 20D3 2D91 5099 72AE</b></p>
-        <br>
+            <p>PGP Signature:<br><b style="color: #ff1493;" class="">87C7 2343 97A6 768D E377 6E42 20D3 2D91 5099 72AE</b></p>
+            
+            <div style="margin-top: 30px; font-size: 8px; color: #999;" class="">
+                Not built with Wix<br>
+                best viewed in lynx or w3m
+            </div>
+
+            <br>
         </div>
+
+        <script>
+            const visitors = [1337, 31337, 80085, 8008135, 666, 69420, 42];
+            document.getElementById('visitor-count').textContent = visitors[Math.floor(Math.random() * visitors.length)];
+
+            const matrix = document.getElementById('matrix');
+            const chars = '01アイウエオカキクケコサシスセソタチツテト';
+            let matrixText = '';
+            for(let i = 0; i < 200; i++) {
+                matrixText += chars[Math.floor(Math.random() * chars.length)];
+                if(i % 20 === 0) matrixText += '\n';
+            }
+            matrix.textContent = matrixText;
+        </script>
     </body>
 </html>
